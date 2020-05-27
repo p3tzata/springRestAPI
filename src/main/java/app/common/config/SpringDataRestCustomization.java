@@ -15,7 +15,7 @@ public class SpringDataRestCustomization implements RepositoryRestConfigurer {
     config.getCorsRegistry().addMapping("/**")
            .allowedOrigins("*")
            // .allowedOrigins("*")
-            .allowedMethods("GET","POST");
+            .allowedMethods("GET","POST","DELETE");
     
     
     config.exposeIdsFor(Task.class);

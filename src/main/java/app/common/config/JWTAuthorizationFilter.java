@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import com.auth0.jwt.JWT;
@@ -58,9 +59,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                     .build()
                     .verify(token.replace(TOKEN_PREFIX, ""))
                     .getSubject();
-
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, userService.loadUserByUsername(user).getAuthorities());
+            UserDetails loadUserByUsername = userService.loadUserByUsername(user);
+            if (loadUserByUsername != null) {
+                return new UsernamePasswordAuthenticationToken(loadUserByUsername, null, userService.loadUserByUsername(user).getAuthorities());
             }
             return null;
         }

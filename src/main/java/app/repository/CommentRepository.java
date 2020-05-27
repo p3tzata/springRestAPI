@@ -1,13 +1,23 @@
 package app.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import org.springframework.stereotype.Repository;
+
+import app.entity.Comment;
 import app.entity.Post;
-import app.entity.Task;
+
 
 //@RepositoryRestResource(path = "public/taasks")
-@RepositoryRestResource()
-public interface CommentRepository extends JpaRepository<Post, Long> {
+@Repository()
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 
+	
+	@Query("Select c from Comment c where c.post.postId=:postId ")
+	public List<Comment> findAllByPostId(@Param("postId") Long postId);
+	
 }

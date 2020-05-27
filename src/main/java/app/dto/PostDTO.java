@@ -1,34 +1,28 @@
-package app.entity;
+package app.dto;
 
-
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.lang.NonNull;
 
-import app.entity.listener.PostEntityListener;
 
 
-
-@Entity
-@EntityListeners(PostEntityListener.class)
-public class Post {
+public class PostDTO {
 	
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long postId;
 	
-	@ManyToOne 
-	private User author; 
 
-	@NonNull
+	private UserDTO author; 
+
+
 	private String description;
 	
 	private String title;
@@ -41,7 +35,7 @@ public class Post {
 	
 	
 	
-	public Post() {
+	public PostDTO() {
 		super();
 	
 	}
@@ -54,11 +48,11 @@ public class Post {
 		this.postId = postId;
 	}
 
-	public User getAuthor() {
+	public UserDTO getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(User author) {
+	public void setAuthor(UserDTO author) {
 		this.author = author;
 	}
 
